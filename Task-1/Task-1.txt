@@ -1,0 +1,12 @@
+Welcome to GitHub
+
+List of tasks in Git:
+
+1. Committing to Git
+2. Version Control
+
+
+Adding stuff to a new branch:
+"This line will not be in the Master Branch"
+
+Adding some stuff so i can merge with side branch.
