@@ -12,25 +12,18 @@ function onSubmit(e) {
 
     if(nameInput.value === '' || emailInput.value === '') {
 
-        msg.classList.add('error');
-
-        msg.innerHTML = 'Please Enter All The Fields';
-
-        // Removing Error Message
-        setTimeout(() => msg.remove(), 3000);
-
+        errorMsg();
+    
     }else {
         
         // Creating Node
         createNode();
 
         // Storing to local Storage
-        localStorage.setItem('Name', nameInput.value);
-        localStorage.setItem('Email', emailInput.value);
+        storeToLocalStorage();
 
         // Clearing the fields
-        nameInput.value = '';
-        emailInput.value = '';
+        clearFields();
     }
 
 }
@@ -42,4 +35,23 @@ function createNode() {
             `${nameInput.value} : ${emailInput.value}`
         ));
         userList.appendChild(li);
+}
+
+function clearFields() {
+    nameInput.value = '';
+    emailInput.value = '';
+}
+
+function storeToLocalStorage() {
+    localStorage.setItem('Name', nameInput.value);
+    localStorage.setItem('Email', emailInput.value);
+}
+
+function errorMsg() {
+    msg.classList.add('error');
+
+    msg.innerHTML = 'Please Enter All The Fields';
+
+    // Removing Error Message
+    setTimeout(() => msg.remove(), 3000);
 }
