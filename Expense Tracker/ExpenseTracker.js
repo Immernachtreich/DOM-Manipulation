@@ -69,6 +69,7 @@ function editItem(e) {
 
         // Removing the list
         mainList.removeChild(li);
+        localStorage.removeItem(li.id);
     }
 }
 
