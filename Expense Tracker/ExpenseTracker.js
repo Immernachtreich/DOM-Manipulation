@@ -22,11 +22,6 @@ retrieveFromLocalStorage();
 
 mainForm.addEventListener('submit', onSubmit);
 
-mainList.addEventListener('click', editItem);
-
-mainList.addEventListener('click', deleteItem);
-
-
 /* 
 * ------ Event Functions ------
 */
@@ -54,40 +49,34 @@ function editItem(e) {
 
     e.preventDefault()
 
-    if(e.target.classList.contains('Edit-Button')) {
+    // Accessing the list
+    let li = e.target.parentElement;
 
-        // Accessing the list
-        let li = e.target.parentElement;
+    // Converting object back into string
+    expenseDetailsDeserialized = JSON.parse(localStorage.getItem(li.id));
 
-        // Converting object back into string
-        expenseDetailsDeserialized = JSON.parse(localStorage.getItem(li.id));
+    // Changing input values to the list values
+    expenseAmount.value = expenseDetailsDeserialized.expenseAmount;
+    description.value = expenseDetailsDeserialized.description;
+    category.value = expenseDetailsDeserialized.category;
 
-        // Changing input values to the list values
-        expenseAmount.value = expenseDetailsDeserialized.expenseAmount;
-        description.value = expenseDetailsDeserialized.description;
-        category.value = expenseDetailsDeserialized.category;
-
-        // Removing the list
-        mainList.removeChild(li);
-        localStorage.removeItem(li.id);
-    }
+    // Removing the list
+    mainList.removeChild(li);
+    localStorage.removeItem(li.id);
 }
 
 function deleteItem(e) {
 
     e.preventDefault();
 
-    if(e.target.classList.contains('Delete-Button')) {
+    // Accessing the list
+    let li = e.target.parentElement;
 
-        // Accessing the list
-        let li = e.target.parentElement;
+    // Removing from local Storage
+    localStorage.removeItem(li.id);
 
-        // Removing from local Storage
-        localStorage.removeItem(li.id);
-
-        // Removing from screen
-        mainList.removeChild(li);
-    }
+    // Removing from screen
+    mainList.removeChild(li);
 }
 
 
@@ -176,6 +165,9 @@ function createEditButton() {
     // Adding Text
     editButton.append(document.createTextNode('Edit Expense'));
 
+    // Adding event listener
+    editButton.onclick = editItem;
+
     return editButton;
 }
 
@@ -189,6 +181,9 @@ function createDeleteButton() {
 
     // Adding Text to the button
     deleteButton.append(document.createTextNode('Delete Expense'));
+
+    // Adding event listener
+    deleteButton.onclick = deleteItem;
 
     return deleteButton;
 }
