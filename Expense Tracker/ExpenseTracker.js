@@ -9,18 +9,13 @@ const category = document.getElementById('Category-Input');
 // Main Display List
 const mainList = document.getElementById('Main-List');
 
-/*
-* Retrieving from local Storage 
-*/
-
-retrieveFromLocalStorage();
-
-
 /* 
 * ------ Event Listeners ------
 */
 
 mainForm.addEventListener('submit', onSubmit);
+
+window.addEventListener('DOMContentLoaded', retrieveFromLocalStorage);
 
 /* 
 * ------ Event Functions ------

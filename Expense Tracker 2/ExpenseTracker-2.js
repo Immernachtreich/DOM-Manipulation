@@ -20,10 +20,6 @@ window.addEventListener('DOMContentLoaded', retrieveFromCrudCrud);
 
 mainForm.addEventListener('submit', onSubmit);
 
-mainList.addEventListener('click', editItem);
-
-mainList.addEventListener('click', deleteItem);
-
 
 /* 
 * ------ Event Functions ------
@@ -60,55 +56,49 @@ function editItem(e) {
 
     e.preventDefault()
 
-    if(e.target.classList.contains('Edit-Button')) {
 
-        // Accessing the list
-        let li = e.target.parentElement;
-        let url = 'https://crudcrud.com/api/5d4f52910ad645289bc05c2f0786cd60/ExpenseTracker/' + li.id;
+    // Accessing the list
+    let li = e.target.parentElement;
+    let url = 'https://crudcrud.com/api/c1383c362b7b41a4973be5116d611106/ExpenseTracker/' + li.id;
 
-        axios
-            .get(url)
-            .then((response) => {
+    axios
+        .get(url)
+        .then((response) => {
 
-                // Changing input values to the list values
-                expenseAmount.value = response.data.expenseAmount;
-                description.value = response.data.description;
-                category.value = response.data.category;
+            // Changing input values to the list values
+            expenseAmount.value = response.data.expenseAmount;
+            description.value = response.data.description;
+            category.value = response.data.category;
 
-                // Removing the list
-                mainList.removeChild(li);
+            // Removing the list
+            mainList.removeChild(li);
 
-                // Changing edit variable
-                edit = [true, url];
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-    }
+            // Changing edit variable
+            edit = [true, url];
+        })
+        .catch((err) => {
+            console.log(err);
+        })
 }
 
 function deleteItem(e) {
 
     e.preventDefault();
 
-    if(e.target.classList.contains('Delete-Button')) {
+    // Accessing the list
+    let li = e.target.parentElement;
 
-        // Accessing the list
-        let li = e.target.parentElement;
+    let url = 'https://crudcrud.com/api/c1383c362b7b41a4973be5116d611106/ExpenseTracker/' + li.id;
 
-        let url = 'https://crudcrud.com/api/5d4f52910ad645289bc05c2f0786cd60/ExpenseTracker/' + li.id;
-
-        axios
-            .delete(url)
-            .then((response) => {
-                // Removing From screen
-                mainList.removeChild(li);
-                console.log(response);
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-    }
+    axios
+        .delete(url)
+        .then((response) => {
+            // Removing From screen
+            mainList.removeChild(li);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
 }
 
 
@@ -128,7 +118,7 @@ function storeToCrudCrud() {
 
     // Storing to crud crud
     axios
-        .post('https://crudcrud.com/api/5d4f52910ad645289bc05c2f0786cd60/ExpenseTracker',
+        .post('https://crudcrud.com/api/c1383c362b7b41a4973be5116d611106/ExpenseTracker',
             expenseDetails)
         .then((response) => {
             createList(response.data);
@@ -140,7 +130,7 @@ function storeToCrudCrud() {
 
 function retrieveFromCrudCrud() {
     axios
-        .get('https://crudcrud.com/api/5d4f52910ad645289bc05c2f0786cd60/ExpenseTracker')
+        .get('https://crudcrud.com/api/c1383c362b7b41a4973be5116d611106/ExpenseTracker')
         .then((response) => {
             response.data.forEach((data) => {
                 createList(data);
@@ -210,7 +200,9 @@ function createEditButton() {
 
     // Adding Class Name
     editButton.className = 'Edit-Button';
-
+    
+    // Adding event listener 
+    editButton.onclick = editItem;
     // Adding Text
     editButton.append(document.createTextNode('Edit Expense'));
 
@@ -224,6 +216,9 @@ function createDeleteButton() {
 
     // Adding class to the button
     deleteButton.className = 'Delete-Button';
+
+    // Adding event listener
+    deleteButton.onclick = deleteItem;
 
     // Adding Text to the button
     deleteButton.append(document.createTextNode('Delete Expense'));
