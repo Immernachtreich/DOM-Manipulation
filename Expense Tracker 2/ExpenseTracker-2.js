@@ -59,7 +59,7 @@ function editItem(e) {
 
     // Accessing the list
     let li = e.target.parentElement;
-    let url = 'https://crudcrud.com/api/c1383c362b7b41a4973be5116d611106/ExpenseTracker/' + li.id;
+    let url = 'https://crudcrud.com/api/ff2dca0f113247c38d275126fb0e5d98/ExpenseTracker/' + li.id;
 
     axios
         .get(url)
@@ -88,7 +88,7 @@ function deleteItem(e) {
     // Accessing the list
     let li = e.target.parentElement;
 
-    let url = 'https://crudcrud.com/api/c1383c362b7b41a4973be5116d611106/ExpenseTracker/' + li.id;
+    let url = 'https://crudcrud.com/api/ff2dca0f113247c38d275126fb0e5d98/ExpenseTracker/' + li.id;
 
     axios
         .delete(url)
@@ -107,7 +107,7 @@ function deleteItem(e) {
 */
 
 
-function storeToCrudCrud() {
+async function storeToCrudCrud() {
 
     // Storing expense details in an object
     let expenseDetails = {
@@ -117,31 +117,34 @@ function storeToCrudCrud() {
     }
 
     // Storing to crud crud
-    axios
-        .post('https://crudcrud.com/api/c1383c362b7b41a4973be5116d611106/ExpenseTracker',
-            expenseDetails)
-        .then((response) => {
-            createList(response.data);
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+    try{
+
+        let response = 
+            await axios.post('https://crudcrud.com/api/ff2dca0f113247c38d275126fb0e5d98/ExpenseTracker',expenseDetails);
+
+        createList(response.data);
+        
+    } catch(err) {
+        console.log(err);
+    }
 }
 
-function retrieveFromCrudCrud() {
-    axios
-        .get('https://crudcrud.com/api/c1383c362b7b41a4973be5116d611106/ExpenseTracker')
-        .then((response) => {
-            response.data.forEach((data) => {
-                createList(data);
-            })
+async function retrieveFromCrudCrud() {
+
+    try {
+
+        let response = await axios.get('https://crudcrud.com/api/ff2dca0f113247c38d275126fb0e5d98/ExpenseTracker');
+
+        response.data.forEach((data) => {
+            createList(data);
         })
-        .catch((err) => {
-            console.log(err);
-        })
+        
+    } catch(err) {
+        console.log(err);
+    }
 }
 
-function editToCrudCrud(url) {
+async function editToCrudCrud(url) {
     
     // Making the new Object
     let expenseDetails = {
@@ -153,14 +156,16 @@ function editToCrudCrud(url) {
     // Making edit false for next user
     edit = [false, ''];
 
-    axios
-        .put(url, expenseDetails)
-        .then((response) => {
-            axios.get(url).then((response) => createList(response.data)).catch(err => console.log(err));
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+    try{
+        await axios.put(url, expenseDetails);
+
+        let response = await axios.get(url);
+        createList(response.data);
+
+    } catch(err) {
+        console.log(err);
+    }
+    
 }
 
 /* 
