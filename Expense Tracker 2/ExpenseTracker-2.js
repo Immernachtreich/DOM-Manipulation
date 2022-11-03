@@ -52,7 +52,7 @@ function onSubmit(e) {
     }
 }
 
-function editItem(e) {
+async function editItem(e) {
 
     e.preventDefault()
 
@@ -61,27 +61,25 @@ function editItem(e) {
     let li = e.target.parentElement;
     let url = 'https://crudcrud.com/api/ff2dca0f113247c38d275126fb0e5d98/ExpenseTracker/' + li.id;
 
-    axios
-        .get(url)
-        .then((response) => {
+    try{
+        let response = await axios.get(url);
+        // Changing input values to the list values
+        expenseAmount.value = response.data.expenseAmount;
+        description.value = response.data.description;
+        category.value = response.data.category;
 
-            // Changing input values to the list values
-            expenseAmount.value = response.data.expenseAmount;
-            description.value = response.data.description;
-            category.value = response.data.category;
+        // Removing the list
+        mainList.removeChild(li);
 
-            // Removing the list
-            mainList.removeChild(li);
+        // Changing edit variable
+        edit = [true, url];
 
-            // Changing edit variable
-            edit = [true, url];
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+    } catch(err) {
+        console.log(err);
+    }
 }
 
-function deleteItem(e) {
+async function deleteItem(e) {
 
     e.preventDefault();
 
@@ -90,15 +88,16 @@ function deleteItem(e) {
 
     let url = 'https://crudcrud.com/api/ff2dca0f113247c38d275126fb0e5d98/ExpenseTracker/' + li.id;
 
-    axios
-        .delete(url)
-        .then((response) => {
-            // Removing From screen
-            mainList.removeChild(li);
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+    try {
+
+        await axios.delete(url);
+
+        // Removing From screen
+        mainList.removeChild(li);
+
+    } catch(err) {
+
+    }
 }
 
 
@@ -184,7 +183,7 @@ function createList(data) {
 
     // Assinging the description as id for list
     li.id = data._id;
-
+    li.className = 'Expense-List';
     // Adding text to the list
     li.append(document.createTextNode(
         `${data.expenseAmount} - ${data.description} - ${data.category}`

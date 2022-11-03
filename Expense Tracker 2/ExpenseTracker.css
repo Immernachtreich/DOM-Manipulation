@@ -1,0 +1,91 @@
+.Body {
+    background-color: #59607d;
+}
+
+.Main-Div {
+    margin: auto;
+    background-color: #91b7db;
+    border: 10px solid #59607d;
+    padding-bottom: 40px;
+}
+
+#Main-Div-H1-Title {
+    text-align: center;
+    color: azure;
+}
+
+#Expense-Amount-Label {
+    color: azure;
+    font-size: 20px;
+    /* margin-right: 40px;
+    margin-left: 20px; */
+}
+
+#Description-Label {
+    color: azure;
+    font-size: 20px;
+    /* margin-right: 85px; */
+}
+
+#Category-Label {
+    color: azure;
+    font-size: 20px;
+}
+
+#Submit-Button {
+    border: 5px solid #c8d2de;
+    border-radius: 10px;
+    background-color: #c8d2de;
+    font-size: 20px;
+    color: #344459;
+}
+
+.Inner-Div {
+    margin: auto;
+    width: 70%;
+}
+
+.List-Div {
+    margin: auto;
+    background-color: #91b7db;
+    border: 10px solid #59607d;
+    padding-bottom: 40px;
+}
+
+.Expense-List {
+    background-color: azure;
+    color: #344459;
+    font-size: 20px;
+    border: 3px solid #344459;
+    display: block;
+    margin-right: 50%;
+    margin-bottom: 6px;
+    padding: 4px;
+}
+
+.Delete-Button {
+    float: right;
+    position: relative;
+    left: 80px;
+
+    background-color: #c21f1f;
+    color: azure;
+    border-radius: 8px;
+    border: none;
+    padding: 4px;
+    font-size: 15px;
+    
+}
+
+.Edit-Button {
+    float: right;
+    position: relative;
+    right: 150px;
+
+    background-color: burlywood;
+    color: azure;
+    border-radius: 8px;
+    border: none;
+    padding: 4px;
+    font-size: 15px;
+}
